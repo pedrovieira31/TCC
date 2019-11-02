@@ -1,0 +1,56 @@
+    {
+        "codigo": "AE001",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE002",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE003",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE004",
+        "horasTotais": 60
+    },
+    {
+        "codigo": "AE005",
+        "horasTotais": 45
+    },
+    {
+        "codigo": "AE006",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE007",
+        "horasTotais": 60
+    },
+    {
+        "codigo": "AE008",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE009",
+        "horasTotais": 60
+    },
+    {
+        "codigo": "AE010",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE011",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE012",
+        "horasTotais": 30
+    },
+    {
+        "codigo": "AE013",
+        "horasTotais": 90
+    },
+    {
+        "codigo": "AE014",
+        "horasTotais": 90
+    }
