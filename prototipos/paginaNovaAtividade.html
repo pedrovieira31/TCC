@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Nova atividade</title>
+    <meta charset='UTF-8'>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        form {
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        button {
+            margin: left;
+            background-position: left;
+            margin: 2px;
+            font-size: 15px;
+        }
+
+        form input {
+            background-position: center;
+            margin: 2px;
+            font-size: 15px;
+        }
+
+        /*Classe Padrão*/
+        .titulo {
+            margin-right: 50%;
+            padding: 20px;
+            color: rgb(0, 0, 0);
+            font-size: 30px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 95%;
+            height: 100%;
+            font-weight: bolder;
+        }
+
+        .cabecalho {
+            background-color: rgb(117, 177, 238);
+            height: 80px;
+            box-sizing: content-box;
+            border-bottom: solid 5px rgb(80, 80, 80);
+        }
+
+        .logo {
+            margin: 0%;
+            float: left;
+            display: inline-block;
+            height: 80px;
+            padding: 10px;
+        }
+
+        .logoImagem {
+            height: 100%;
+        }
+        .autentificacao{
+            float:right;
+            height: 80px;
+            padding: 10px;
+        }
+        .botao{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            border-radius: 10px;
+            padding: 10px 10px;
+            margin: 10px
+            border: 1px solid  #000000;
+            background: rgb(124,28,23);
+        }
+        .botao:hover{
+            background-color: #e9e9e9;
+            color: rgb(56, 138, 219);
+        }
+        .destaque{
+            background:rgb(124,28,23);
+            color: rgb(255, 255, 255);;
+        }
+        .conteudo {
+            color: rgb(0, 0, 0);
+            font-size: 50px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        .box{
+            overflow: hidden;
+            margin: 0 auto;
+            height: 880px;
+            width: 70%;
+            padding: 50px 10px;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            background: #ececec;
+            border:0,1px solid #000000;
+            text-decoration: none;
+            font-weight: bolder;
+            text-align: center;
+            border-top: none;
+            border-bottom: none;
+        }
+        .info {
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        body {
+            margin: 0%;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        input[type=text] {
+            margin-top: 5px;
+            margin-left: 38%;
+            width: 25%;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #ffffff;
+            border: 1px solid #000000;
+        }
+
+        input[type=button] {
+            margin-top: 5px;
+            width: 30%;
+            padding: 5px 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #e9e9e9;
+            border: 1px solid #000000;
+            text-decoration: none;
+            font-weight: bolder;
+            cursor: pointer;
+        }
+        input[type=button]:hover {
+            background: rgb(56, 138, 219);
+            color: #ffffff;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+        select {
+            margin: auto;
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 5px 0px 5px;
+            width: 70%;
+            border-radius: 6px;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #e9e9e9;
+            border: 1px solid #000000;
+            font-weight: bolder;
+        }
+        input[type=button1] {
+            margin-top: 5px;
+            float: right;
+            width: 5.5%;
+            padding: 5px 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #e9e9e9;
+            border: 1px solid #000000;
+            text-decoration: none;
+            font-weight: bolder;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        input[type=button1]:hover {
+            background: rgb(56, 138, 219);
+            color: #ffffff;
+        }
+
+        .fileUpload {
+            position: relative;
+            overflow: hidden;
+            margin: auto;
+            width: 50%;
+            margin-top: 5px;
+            padding: 5px 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #e9e9e9;
+            border: 1px solid #000000;
+            text-decoration: none;
+            font-weight: bolder;
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+        // ...
+</script>
+
+<body class="Conteudo da página">
+        <header class="cabecalho">
+                <aside class="autentificacao">
+                        <a href="paginaLogin.html" class="botao destaque">Voltar</a>
+                        <a href="paginaIncial.html" class="botao destaque">Logout</a>
+                        
+                    </aside>
+            <img src="logo.png" class="logo" alt="Logo"></img>
+            <div class="titulo">Atividades Complementares curso Sistemas de Informação-UFV/CRP
+                    <div class="info">Nome: Pedro Victor Vieira Gontijo| Matrícula: ER04817</div>
+                
+        </header>
+        <div class="box">
+    <div class="conteudo">Cadastro de nova atividade</div>
+    <form>
+            <select name="Códigos">
+                    <option value="AE000">Escolha o código da atividade</option>
+                    <option value="AE001">AE001: Cursos e minicursos de extensão (presencial ou à distância) realizados</option>
+                    <option value="AE002">AE002: Curso, minicursos e palestras ministrados</option>
+                    <option value="AE003">AE003: Participação em congressos, seminários ou outros eventos, sem apresentação de trabalho ou outros eventos</option>
+                    <option value="AE004">AE004: Participação em congressos, seminários ou outros eventos, com apresentação de trabalho ou outros eventos</option>
+                    <option value="AE005">AE005: Participação na organização de eventos acadêmicos e científicos</option>
+                    <option value="AE006">AE006: Publicação de artigo completo</option>
+                    <option value="AE007">AE007: Publicação de artigo curto (shortpaper), resumo</option>
+                    <option value="AE008">AE008: Estágio não obrigatório</option>
+                    <option value="AE009">AE009: Monitoria</option>
+                    <option value="AE010">AE010: Atividade de iniciação cientifica</option>
+                    <option value="AE011">AE011: Atividade de iniciação à extensão</option>
+                    <option value="AE012">AE012: Viagens de estudo/visita técnica</option>
+                    <option value="AE013">AE013: Prestação de serviços relevantes à comunidade</option>
+                    <option value="AE014">AE014: Casos Omissos</option>
+                </select>
+                <select name="opções">
+                    <option value="horas">Escolha como inserir seus minutos</option>
+                    <option value="horas2">Minutos soltos</option>
+                    <option value="horas1">Período completo</option>
+                </select>
+                <input type="text" class="form-control" maxlength="3" placeholder="Minutos" onkeypress="$(this).mask('000')">
+                <input type="text" placeholder="Breve descrição da atividade" ></input>
+                <div class="fileUpload btn btn-primary">
+                    <span>Enviar Certificado</span>
+                    <input type="file" class="upload" />
+                </div>
+        <a href="paginaLogin.html"><input type="button" value="Cadastrar atividade"></a>
+    </div>
+    </form>
+</body>
+
+</html>
