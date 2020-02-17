@@ -12,9 +12,15 @@
 import tituloPagina from '@/components/template/tituloPagina'
 import tabelaAdmin from './tabelaAdmin'
 
+
 export default {
   nome: 'paginasAdmin',
-  components: { tituloPagina, tabelaAdmin}
+  components: { tituloPagina, tabelaAdmin},
+    data: function(){
+        return {
+            processos:{}
+        }    
+    }
 };
 </script>
 

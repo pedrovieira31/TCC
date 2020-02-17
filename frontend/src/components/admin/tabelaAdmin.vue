@@ -2,7 +2,7 @@
     <div class="tabela-admin">
         <h1>Tabela de processos</h1>
         <div class="tabela-admin">
-            <b-table hover striped :itens="usuarios" :fields="campos"></b-table>
+            <b-table hover striped :items="this.processos" :fields="campos"></b-table>
         </div>
     </div>
 </template>
@@ -12,35 +12,31 @@ import{baseApiUrl} from '@/global'
 import axios from 'axios'
 
 export default {
-    nome: 'tabelaAdmin',
+    nome: 'processos',
     data: function(){
             return {
                 mode:'save',
                 processo:{},
                 processos:[],
                 campos:[
-                    {key: 'id', label: 'Processo Atividade', sortable:true},
-                    {key: 'data', label: 'Data', sortable:true},
-                    {key: 'codigo', label: 'Atividade', sortable:true},
-                    {key: 'descricao', label: 'Descrição', sortable:true},
+                    {key: 'id', label: 'Processo'},
                     {key: 'matricula', label: 'Matrícula', sortable:true},
-                    {key: 'nome', label: 'Nome', sortable:true},
-                    {key: 'email', label: 'E-mail', sortable:true},
-                    {key: 'actions', label: 'Ações'}
+                    {key: 'atividade', label: 'Atividade', sortable:true},
+                    {key: 'descricao', label: 'Descrição', sortable:true},
+                    {key: 'horas', label: 'Horas'},
+                    {key: 'certificado', label: 'Certificado'},
+                    {key: 'validacao', label: 'Validação', sortable:true}
                 ]
             }
     },
     methods:{
-        carregarUsuarios(){
-            const url = `${baseApiUrl}/usuarios`
-            axios.get(url).then(res=>{
-                this.usuarios = res.data
-            })
+        carregarProcessos(){
+            const url = `${baseApiUrl}/admin`
+            axios.get(url).then(res=>{this.processos = res.data})
         }
-
     },
     mounted(){
-        this.carregarUsuarios()
+        this.carregarProcessos()
     }
 };
 </script>

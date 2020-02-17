@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 
 const routes = [{
     name: 'home',
-    path: '/home',
+    path: '/${Matricula}',
     component: Home
 }, {
     name: 'cadastro',
@@ -23,7 +23,7 @@ const routes = [{
     component: cadastroAtividade
 },{
     name: 'login',
-    path: '/login',
+    path: '/',
     component: login
 },{
     name: 'paginasAdmin',
@@ -32,9 +32,7 @@ const routes = [{
     meta: { requiresAdmin: true }
 }]
 
-const router = new VueRouter({
+export default new VueRouter({
     mode: 'history',
     routes
 })
-
-export default router

@@ -119,7 +119,7 @@
             </tr>
         </table>
         <b-row>
-        <b-button variant="primary" href="cadastroAtividade" style="margin:5px 10px 0px 20px" @click="save">Cadastrar nova atividade</b-button>
+        <b-button variant="primary" href="cadastroAtividade" style="margin:5px 10px 0px 20px">Cadastrar nova atividade</b-button>
         </b-row>
         </div>
     </div>
