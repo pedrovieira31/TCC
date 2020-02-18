@@ -5,7 +5,7 @@ import Home from '@/components/home/Home'
 import paginasAdmin from '@/components/admin/paginasAdmin'
 import cadastro from '@/components/cadastro/cadastro'
 import cadastroAtividade from '@/components/cadastro/cadastroAtividade'
-import login from '@/components/login/login'
+import autentificacao from '@/components/autentificacao/autentificacao'
 
 Vue.use(VueRouter)
 
@@ -22,9 +22,9 @@ const routes = [{
     path: '/cadastroAtividade',
     component: cadastroAtividade
 },{
-    name: 'login',
-    path: '/',
-    component: login
+    name: 'autentificacao',
+    path: '/login',
+    component: autentificacao
 },{
     name: 'paginasAdmin',
     path: '/admin',

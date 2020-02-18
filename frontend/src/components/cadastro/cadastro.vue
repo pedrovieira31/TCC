@@ -71,6 +71,7 @@ export default {
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     this.usuario={}
+                    this.$router.push({path: '/'})
                 })
                 .catch(showError)
         }

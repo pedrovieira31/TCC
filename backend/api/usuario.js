@@ -12,7 +12,7 @@ module.exports = app => {
         const usuario = { ...req.body }
         if (req.params.id) usuario.matricula = req.params.id
         if (!req.originalUrl.startsWith('/usuarios')) usuario.admin = false
-        if (!req.usuario || req.usuario.admin) usuario.admin = false
+        if (!req.usuario || !req.usuario.admin) usuario.admin = false
         try {
             existsOrError(usuario.nome, 'Nome não informado')
             existsOrError(usuario.matricula, 'Matricula não informada')
@@ -31,6 +31,7 @@ module.exports = app => {
         }
         usuario.senha = senhacriptografada(usuario.senha)
         delete usuario.confirmarsenha
+
         if (usuario.matricula) {
             app.db('usuarios')
                 .update(usuario)

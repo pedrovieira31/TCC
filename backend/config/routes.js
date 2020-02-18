@@ -2,11 +2,12 @@ const admin = require('./admin')
 
 module.exports = app =>{
     app.post('/cadastro', app.api.usuario.save)
-    app.post('/', app.api.auth.login)
+    app.post('/login', app.api.auth.login)
     app.post('/validarToken', app.api.auth.validarToken)
 
     app.route('/usuarios')
         .get(app.api.usuario.get)
+
     app.route('/cadastro/:matricula')
         .put(app.api.usuario.save)
         .get(app.api.processo.get)

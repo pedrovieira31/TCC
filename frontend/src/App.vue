@@ -1,8 +1,8 @@
 <template>
-	<div id="app" :class="{'hide-menu': !isMenuVisible}">
+	<div id="app" :class="{'hide-menu': !isMenuVisible || !usuario}">
 		<Header titulo="Sistema de Atividades Complementares UFV-CRP" 
-		:hidemenuUsuario="false"/>
-		<Menu/>
+	:hidemenuUsuario="!usuario"/>
+		<Menu v-if ="usuario"/>
 		<Content />
 		<Footer />
 	</div>
@@ -18,7 +18,7 @@ import Footer from "@/components/template/Footer"
 export default {
 	name: "App",
 	components: { Header, Menu, Content, Footer },
-	computed: mapState(['isMenuVisible'])
+	computed: mapState(['isMenuVisible','usuario'])
 }
 </script>
 
