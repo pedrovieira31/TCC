@@ -3,6 +3,7 @@ const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
+    let contToken = {}
     const login = async (req, res) => {
         if (!req.body.matricula || !req.body.senha) {
             return res.status(400).send('Informe matrícula e senha!')
@@ -22,7 +23,7 @@ module.exports = app => {
 
         const agora = Math.floor(Date.now() / 1000)
 
-        const contToken = {
+        this.contToken = {
             matricula: usuario.matricula,
             nome: usuario.nome,
             email: usuario.email,
@@ -31,8 +32,8 @@ module.exports = app => {
             exp: agora + (60 * 60 * 24 * 3)
         }
         res.json({
-            ...contToken,
-            token: jwt.encode(contToken, authSecret)
+            ...this.contToken,
+            token: jwt.encode(this.contToken, authSecret)
         })
     }
     const validarToken = async (req, res) => {
@@ -49,5 +50,5 @@ module.exports = app => {
         res.send(false)
     }
     
-    return { login , validarToken }
+    return { login , validarToken, contToken }
 }

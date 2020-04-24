@@ -1,11 +1,14 @@
+const { authSecret } = require('../.env');
+const jwt = require('jwt-simple');
+
 module.exports = app => {
+
+
+    console.log(app.api);
     const { existsOrError } = app.api.validacao
     const { contToken } = app.api.auth
     
     const save = (req, res) => {
-        const processos = { ...req.body }
-        if(req.params.id) processos.id = req.params.id
-
         try {
             existsOrError(processos.atividade, 'Atividade não informada')
             existsOrError(processos.matricula, 'Matricula não informada')
@@ -49,9 +52,12 @@ module.exports = app => {
     
 
     const getMat = (req,res) => {
-        var mat = contToken.matricula;
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.decode(token, authSecret);
+        console.log(decodedToken);
+        var matricula = decodedToken.matricula;
         app.db('processos')
-            .where({mat : matricula})
+            .where({matricula})
             .then(processos => res.json(processos))
             .catch((err) => console.log(err));
     }/*
