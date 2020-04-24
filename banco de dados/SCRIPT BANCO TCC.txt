@@ -1,0 +1,64 @@
+CREATE SCHEMA public."Atividades"
+-- Table: public."Atividades"
+
+-- DROP TABLE public."Atividades";
+
+CREATE TABLE public."Atividades"
+(
+    "ID Atividades" "char[]" NOT NULL,
+    "Horas" abstime,
+    CONSTRAINT "Atividades_pkey" PRIMARY KEY ("ID Atividades")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Atividades"
+    OWNER to postgres;
+
+-- Table: public."Processo"
+
+-- DROP TABLE public."Processo";
+
+CREATE TABLE public."Processo"
+(
+    "ID Processos" "char[]" NOT NULL,
+    "ID Atividades" "char[]",
+    "Matrícula" "char[]",
+    "Nome Processo" "char[]",
+    "Data de abertura" date,
+    "Horas Totais" abstime,
+    "Certificados" pg_lsn,
+    "Validação" boolean,
+    CONSTRAINT "Processo_pkey" PRIMARY KEY ("ID Processos"),
+	CONSTRAINT "Atividades_pkey" FOREIGN KEY ("ID Atividades") REFERENCES Atividades ("ID Atividades"),
+	CONSTRAINT "Usuário_pkey" FOREIGN KEY ("Matrícula") REFERENCES Usuário ("Matrícula")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Processo"
+    OWNER to postgres;
+
+-- Table: public."Usuário"
+
+-- DROP TABLE public."Usuário";
+
+CREATE TABLE public."Usuário"
+(
+    "Matrícula" "char[]" NOT NULL,
+    "Senha" "char[]",
+    "Nome usuário" "char[]",
+    "Tipo usuário" integer,
+    CONSTRAINT "Usuário_pkey" PRIMARY KEY ("Matrícula")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Usuário"
+    OWNER to postgres;

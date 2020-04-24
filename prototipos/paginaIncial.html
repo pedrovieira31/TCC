@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <meta charset='UTF-8'>
+    <link rel ="stylesheet" href="meucss.css">
+    <link rel='stylesheet' href='css/estilo.css'>
+    <style type="text/css">
+    
+           * {
+            box-sizing: border-box;
+        }
+
+        form {
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        button {
+            margin: left;
+            background-position: left;
+            margin: 2px;
+            font-size: 15px;
+        }
+
+        form input {
+            background-position: center;
+            margin: 2px;
+            font-size: 15px;
+        }
+
+        /*Classe Padrão*/
+        .titulo {
+            margin-right: 50%;
+            padding: 20px;
+            color: rgb(0, 0, 0);
+            font-size: 30px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 95%;
+            height: 100%;
+            font-weight: bolder;
+        }
+
+        .cabecalho {
+            background-color: rgb(117, 177, 238);
+            height: 80px;
+            box-sizing: content-box;
+            border-bottom: solid 5px rgb(80, 80, 80);
+        }
+
+        .logo {
+            margin: 0%;
+            float: left;
+            display: inline-block;
+            height: 80px;
+            padding: 10px;
+        }
+
+        .logoImagem {
+            height: 100%;
+        }
+        .autentificacao{
+            float:right;
+            height: 80px;
+            padding: 10px;
+        }
+        .botao{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            border-radius: 10px;
+            padding: 10px 10px;
+            margin: 10px
+            border: 1px solid  #000000;
+            background: rgb(124,28,23);
+        }
+        .botao:hover{
+            background-color: #e9e9e9;
+            color: rgb(56, 138, 219);
+        }
+        .destaque{
+            background:rgb(124,28,23);
+            color: rgb(255, 255, 255);;
+        }
+
+        .conteudo {
+            color: rgb(0, 0, 0);
+            font-size: 50px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .box{
+            overflow: hidden;
+            margin: 0 auto;
+            height: 880px;
+            width: 70%;
+            padding: 200px 10px;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            background: #ececec;
+            border:0,1px solid #000000;
+            text-decoration: none;
+            font-weight: bolder;
+            text-align: center;
+            border-top: none;
+            border-bottom: none;
+
+        }
+        .info {
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            height: 100%;
+            font-weight: bolder;
+            
+        }
+
+        body {
+            margin: 0%;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            width: 100%;
+            empty-cells: show;
+        }
+        input[type=text] {
+            display: inline;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #ffffff;
+            border: 1px solid #000000;
+            
+        }
+        input[type=password] {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #ffffff;
+            border: 1px solid #000000;
+        }
+
+         input[type=button] {
+            width: 55%;
+            padding: 5px 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            box-shadow: 1px 1px 2px #333333;
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            background: #e9e9e9;
+            border: 1px solid #000000;
+            text-decoration:none;
+            font-weight:bolder;
+            cursor: pointer;
+        }
+        input[type=button]:hover{
+            background: rgb(56, 138, 219);
+            color: #ffffff;
+        }
+        a:link{
+            text-decoration:none;
+        }
+    </style>
+</head>
+
+<script>
+        // ...
+</script>
+
+<body class="Conteudo da página">
+    
+        <header class="cabecalho">
+            <img src="logo.png" class="logo" alt="Logo"></img>
+            <div class="titulo">Atividades Complementares curso Sistemas de Informação - UFV/CRP</div>
+        </header>
+    <div class="box">
+    <div class="conteudo">Login</div>
+    <form>
+            <div style="display:flex;justify-content:center;align-items:center;">
+                    <div></div>
+                  </div>
+        <input type="text" style="max-width: min-width;height: 20px" maxlength="7" name="mat" placeholder="Matrícula">
+        <input type="password" style="max-width: min-width;height: 20px" name="pass" placeholder="Senha">
+        <a href="paginaLogin.html"><input type="button"value="Entrar"></a>
+        <a href="paginaCadastro.html"><input type="button"value="Cadastrar"></a>
+    </div>
+    </form>
+</body>
+
+</html>
