@@ -6,30 +6,18 @@ module.exports = app =>{
         if(req.params.id) atividade.codigo = req.params.id
         try{
             existsOrError(atividade.codigo, 'Código não informado')
-            existsOrError(atividade.horasTotais, 'Horas Totais não informadas')
+            existsOrError(atividade.horasTotais, 'Minutos não informados')
+            existsOrError(atividade.descricao, 'Descrição não informada')
              const atividadeDB = await app.db('atividades')
-                .where({codigo:atividade.codigo})
-                if(!atividade.codigo){
-                    notExistsOrError(atividadeDB, 'Atividade já cadastrada.')
-            }
         }catch(msg){
             return res.status(400).send(msg)
-        }
-
-        if(atividade.id){
-            app.db('atividades')
-                .update(atividade)
-                .where({codigo:req.atividade.codigo})
-                .then(_=> res.status(204).send())
-                .catch(err=> res.status(500).send(err))
-        } else{ 
+        } 
             app.db('atividades')
                 .insert(atividade)
                 .then(_=> res.status(204).send())
                 .catch(err => res.status(500).send(err))
 
-            }
-    }
+        }
     const get = async (req,res) => {
         app.db('atividades')
             .then(atividade => res.json(atividade))

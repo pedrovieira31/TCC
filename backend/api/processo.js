@@ -1,6 +1,7 @@
 module.exports = app => {
     const { existsOrError } = app.api.validacao
-
+    const { contToken } = app.api.auth
+    
     const save = (req, res) => {
         const processos = { ...req.body }
         if(req.params.id) processos.id = req.params.id
@@ -15,18 +16,11 @@ module.exports = app => {
             res.status(400).send(msg)
         }
 
-        if(processos.id) {
-            app.db('processos')
-                .update(processos)
-                .where({ id: processos.id })
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
-        } else {
             app.db('processos')
                 .insert(processos)
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
-        }
+
     }
 
     const remove = async (req, res) => {
@@ -35,7 +29,7 @@ module.exports = app => {
                 .where({ id: req.params.id }).del()
             
             try {
-                existsOrError(rowsDeleted, 'Artigo não foi encontrado.')
+                existsOrError(rowsDeleted, 'Processo não foi encontrado.')
             } catch(msg) {
                 return res.status(400).send(msg)    
             }
@@ -45,18 +39,32 @@ module.exports = app => {
             res.status(500).send(msg)
         }
     }
+
+
     const get = (req,res) => {
         app.db('processos')
             .then(processos => res.json(processos))
             .catch(err => res.status(500).send(err))
     }
+    
+
     const getMat = (req,res) => {
+        var mat = contToken.matricula;
         app.db('processos')
-            .select('id','atividade','matricula','descricao','horas','certificado','validacao')
-            .where({matricula:req.params.matricula})
+            .where({mat : matricula})
             .then(processos => res.json(processos))
-            .catch(err => res.status(500).send(err))
-    }
+            .catch((err) => console.log(err));
+    }/*
+            const getMat = (req, res) => {
+                app.db('processos')
+                .where({ matricula: req.matricula })
+                .first()
+                .then(processo => {
+                    processo.content = processo.content.toString()
+                    return res.json(processo)
+                })
+                .catch((err) => console.log(err));
+        }*/
 
     return{save,remove,get,getMat}
 }

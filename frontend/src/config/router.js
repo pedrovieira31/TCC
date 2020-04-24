@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 
 const routes = [{
     name: 'home',
-    path: '/${Matricula}',
+    path: '/home',
     component: Home
 }, {
     name: 'cadastro',
@@ -23,7 +23,7 @@ const routes = [{
     component: cadastroAtividade
 },{
     name: 'autentificacao',
-    path: '/login',
+    path: '',
     component: autentificacao
 },{
     name: 'paginasAdmin',

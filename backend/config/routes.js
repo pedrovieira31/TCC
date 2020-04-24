@@ -6,16 +6,28 @@ module.exports = app =>{
     app.post('/validarToken', app.api.auth.validarToken)
 
     app.route('/usuarios')
-        .get(app.api.usuario.get)
+        .all(app.config.passport.authenticate())
+        .get(admin(app.api.usuario.get))
 
-    app.route('/cadastro/:matricula')
+    app.route('/usuarios')
+        .all(app.config.passport.authenticate())
+        .post(app.api.auth.login)
+        .put(app.api.usuario.save)
+        .get(app.api.usuario.getMat)
+        .get(app.api.processo.getMat)
+
+    app.route('/processo')
+        .put(app.api.usuario.save)
+        .get(app.api.usuario.getMat)
+
+    app.route('/cadastro')
         .put(app.api.usuario.save)
         .get(app.api.processo.get)
 
-    app.route('/processo')
+    app.route('/cadastroAtividade')
         .post(app.api.processo.save)
 
-    app.route('/processo/:matricula')
+    app.route('/home')
         .get(app.api.processo.getMat)
 
     app.route('/admin')

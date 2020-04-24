@@ -31,8 +31,7 @@ export default {
     },
     methods:{
         carregarProcessos(){
-            const url = `${baseApiUrl}/admin`
-            axios.get(url).then(res=>{this.processos = res.data})
+            axios.get(`${baseApiUrl}/admin`).then(res=>{this.processos = res.data})
         }
     },
     mounted(){

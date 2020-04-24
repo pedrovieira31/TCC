@@ -26,11 +26,11 @@
                             <b-form-input id="usuario-email" type="text"
                             v-model="usuario.email" required />
                         </b-form-group>
-                <button v-if="!showcadastrar" href @click.prevent="showcadastrar = !showcadastrar">Cadastrar</button>
-                <button v-if="!showcadastrar" @click="logar">Entrar</button>
-                <button v-if="showcadastrar" @click="cadastrar">Cadastrar</button>
-
             </b-form>        
+            <button v-if="!showcadastrar" href @click.prevent="showcadastrar = !showcadastrar">Cadastrar</button>
+            <button v-if="!showcadastrar" @click="logar">Entrar</button>
+            <button v-if="showcadastrar" @click="cadastrar">Cadastrar</button>
+            <button v-if="showcadastrar" href @click.prevent="showcadastrar = !showcadastrar">Login</button>
         </div>
     </div>
 </template>
@@ -53,10 +53,11 @@ export default {
     logar() {
       axios.post(`${baseApiUrl}/login`, this.usuario)
         .then(res => {
-          this.store.commit("setUsuario", res.data);
+          this.$store.commit('setUsuario', res.data);
           localStorage.setItem(chaveUsuario, JSON.stringify(res.data));
+          this.$router.push({path:'/home'})
         })
-        .catch(showError);
+        .catch((err) => console.log(err));
     },
     cadastrar() {
       axios.post(`${baseApiUrl}/cadastro`, this.usuario)
@@ -65,7 +66,7 @@ export default {
           this.usuario = {};
           this.showcadastrar = false;
         })
-        .catch(showError);
+        .catch((err) => console.log(err));
     }
   }
 };
@@ -107,11 +108,15 @@ export default {
 }
 
 .autentificacao-modal button {
-  align-self: flex-end;
+  display: flex;
+  align-items: center;
   background-color: #2460ae;
   border-radius: 10px;
   color: #fff;
   padding: 5px 15px;
+}
+.autentificacao-modal button:hover  {
+  background-color: #246;
 }
 
 .autentificacao-modal a {

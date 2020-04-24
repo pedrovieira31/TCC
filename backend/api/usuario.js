@@ -9,10 +9,12 @@ module.exports = app => {
     }
 
     const save = async (req, res) => {
-        const usuario = { ...req.body }
+        const usuario = { ...req.body };
         if (req.params.id) usuario.matricula = req.params.id
         if (!req.originalUrl.startsWith('/usuarios')) usuario.admin = false
         if (!req.usuario || !req.usuario.admin) usuario.admin = false
+
+        let userFromDb = null;
         try {
             existsOrError(usuario.nome, 'Nome não informado')
             existsOrError(usuario.matricula, 'Matricula não informada')
@@ -20,47 +22,42 @@ module.exports = app => {
             existsOrError(usuario.confirmarsenha, 'Confirmação de Senha inválida')
             equalsOrError(usuario.senha, usuario.confirmarsenha, 'Senhas Diferentes')
             existsOrError(usuario.email, 'E-mail não informado')
-            const userFromDB = await app.db('usuarios')
-            .where({ matricula: usuario.matricula }).first()
-            if (!usuario.matricula) {
-                notExistsOrError(userFromDB, 'Usuário já cadastrado')
+            userFromDB = await app.db('usuarios')
+            .where({ matricula: usuario.matricula }).first();
+            if (userFromDb && usuario.matricula === userFromDb.matricula) {
+                existsOrError(userFromDB, 'Usuário já cadastrado');
             }
 
         } catch (msg) {
             return res.status(400).send(msg)
         }
+        console.log(usuario);
         usuario.senha = senhacriptografada(usuario.senha)
         delete usuario.confirmarsenha
 
-        if (usuario.matricula) {
-            app.db('usuarios')
-                .update(usuario)
-                .where({ matricula: usuario.matricula })
-                .whereNull('deletedAt')
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
-        } else {
-            app.db('usuarios')
+        await app.db('usuarios')
                 .insert(usuario)
-                .then(_ => res.status(204).send())
-                .catch(err => res.status(500).send(err))
-        }
+                .then(_ => res.status(200).send(usuario))
+                .catch(err => {
+                    console.log(err);
+                   return res.status(500).send(err)
+                });
     }
     const get = (req, res) => {
         app.db('usuarios')
             .select('matricula', 'nome', 'email')
-            .whereNull('deletedAt')
+            .whereNull('deleted_at')
             .then(usuario => res.json(usuario))
             .catch(err => res.status(500).send(err))
     }
-    const getId = (req,res) => {
+    const getMat = (req,res) => {
         app.db('usuarios')
-            .select('matricula','nome','email')
+            .select('matricula')
             .where({matricula:req.params.matricula})
-            .whereNull('deletedAt')
+            .whereNull('deleted_at')
             .first()
             .then(usuario=> res.json(usuario))
             .catch(err => res.status(500).send(err))
     }
-    return { save, getId,get }
+    return { save, getMat,get }
 }

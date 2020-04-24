@@ -10,18 +10,26 @@
             </router-link>
         </div>
         <div class="conteudo-menu-usuario">
-            <a href><i class="fa fa-sign-out"></i>Sair</a>
+            <a href @click.prevent="logout"><i class="fa fa-sign-out"></i>Sair</a>
         </div>
     </div>
 </template>
 
 <script>
+import { chaveUsuario } from '@/global'
 import {mapState} from 'vuex'
 import Gravatar from 'vue-gravatar'
 export default {
     nome: 'menuUsuario',
     components: {Gravatar},
-    computed: mapState(['usuario'])
+    computed: mapState(['usuario']),
+    methods: {
+        logout() {
+            localStorage.removeItem(chaveUsuario)
+            this.$store.commit('setUsuario', null)
+            this.$router.push({path:'/'})
+        }
+    }
 }
 </script>
 
