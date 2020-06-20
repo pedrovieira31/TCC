@@ -1,28 +1,28 @@
 <template>
-    <div class="paginasAdmin">
-        <tituloPagina icon="fa fa-cogs" main=" Administração do Sistema"/>
-            <div title="Tabela de Processos">
-            <div class= "Home-modal">
-                <tabelaAdmin/>
-            </div>
-            </div>
-    </div>
+  <div class="paginasAdmin">
+    <tituloPagina icon="fa fa-cogs" main=" Administração do Sistema"/>
+      <div title="Tabela de Alunos">
+        <div class= "paginasAdmin-modal">
+          <tabelaAlunos/>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
-
-import tituloPagina from '@/components/template/tituloPagina'
-import tabelaAdmin from './tabelaAdmin'
-
+import tituloPagina from "@/components/template/tituloPagina";
+import tabelaAlunos from "./tabelaAlunos";
+import {chaveUsuario } from "@/global";
 
 export default {
-  nome: 'paginasAdmin',
-  components: { tituloPagina, tabelaAdmin},
-    data: function(){
-        return {
-            processos:{}
-        }    
+  nome: "paginasAdmin",
+  components: { tituloPagina, tabelaAlunos},
+  created(){
+    const usuario = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
+    if(usuario){
+      this.$store.commit("setUsuario", usuario);
     }
+  }
 };
 </script>
 
@@ -59,13 +59,6 @@ export default {
   outline: none;
 }
 
-.paginasAdmin-modal button {
-  align-self: flex-end;
-  background-color: #2460ae;
-  border-radius: 10px;
-  color: #fff;
-  padding: 5px 15px;
-}
 
 .paginasAdmin-modal a {
   margin-top: 35px;

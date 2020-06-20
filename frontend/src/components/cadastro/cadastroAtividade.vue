@@ -1,68 +1,69 @@
+
  <template>
     <div class="cadastroAtividade" >
         <tituloPagina icon="fa fa-pencil" main=" Cadastro de Atividade"/>
         <div class= "cadastroAtividade-modal">
-
             <b-form>
-                <input id="processo-atividade" type="hidden" v-model="usuario.id" />
                 <b-row>
                     <b-col md="9" sm="12">
                         <b-form-group label="Escolha a Atividade:" >
-                            <b-form-select codigo="atividade" class="picker">
-                                <option value="AE001">AE001: Cursos e minicursos de extensão (presencial ou à distância) realizados</option>
-                                <option value="AE002">AE002: Curso, minicursos e palestras ministrados</option>
-                                <option value="AE003">AE003: Participação em congressos, seminários ou outros eventos, sem apresentação de trabalho ou outros eventos</option>
-                                <option value="AE004">AE004: Participação em congressos, seminários ou outros eventos, com apresentação de trabalho ou outros eventos</option>
-                                <option value="AE005">AE005: Participação na organização de eventos acadêmicos e científicos</option>
-                                <option value="AE006">AE006: Publicação de artigo completo</option>
-                                <option value="AE007">AE007: Publicação de artigo curto (shortpaper), resumo</option>
-                                <option value="AE008">AE008: Estágio não obrigatório</option>
-                                <option value="AE009">AE009: Monitoria</option>
-                                <option value="AE010">AE010: Atividade de iniciação cientifica</option>
-                                <option value="AE011">AE011: Atividade de iniciação à extensão</option>
-                                <option value="AE012">AE012: Viagens de estudo/visita técnica</option>
-                                <option value="AE013">AE013: Prestação de serviços relevantes à comunidade</option>
-                                <option value="AE014">AE014: Casos Omissos</option>
+                            <b-form-select atividade="atividade" class="select" v-model="atividade.atividade" required>
+                                <option atividade.atividade = "AE001" value="AE001">AE001: Cursos e minicursos de extensão (presencial ou à distância) realizados</option>
+                                <option atividade.atividade = "AE002" value="AE002">AE002: Curso, minicursos e palestras ministrados</option>
+                                <option atividade.atividade = "AE003" value="AE003">AE003: Participação em congressos, seminários ou outros eventos, sem apresentação de trabalho ou outros eventos</option>
+                                <option atividade.atividade = "AE004" value="AE004">AE004: Participação em congressos, seminários ou outros eventos, com apresentação de trabalho ou outros eventos</option>
+                                <option atividade.atividade = "AE005" value="AE005">AE005: Participação na organização de eventos acadêmicos e científicos</option>
+                                <option atividade.atividade = "AE006" value="AE006">AE006: Publicação de artigo completo</option>
+                                <option atividade.atividade = "AE007" value="AE007">AE007: Publicação de artigo curto (shortpaper), resumo</option>
+                                <option atividade.atividade = "AE008" value="AE008">AE008: Estágio não obrigatório</option>
+                                <option atividade.atividade = "AE009" value="AE009">AE009: Monitoria</option>
+                                <option atividade.atividade = "AE0010" value="AE010">AE010: Atividade de iniciação cientifica</option>
+                                <option atividade.atividade = "AE0011" value="AE011">AE011: Atividade de iniciação à extensão</option>
+                                <option atividade.atividade = "AE0012" value="AE012">AE012: Viagens de estudo/visita técnica</option>
+                                <option atividade.atividade = "AE0013" value="AE013">AE013: Prestação de serviços relevantes à comunidade</option>
+                                <option atividade.atividade = "AE0014" value="AE014">AE014: Casos Omissos</option>
                             </b-form-select>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col md="4" sm="12">
-                        <b-form-group label="Descrição:" label-for="processo-descricao">
-                            <b-form-input id="processo-descricao" type="text"
-                            v-model="usuario.info" required 
+                        <b-form-group label="Descrição:" label-for="atividade-descricao">
+                            <b-form-input id="atividade-descricao" type="text"
+                            v-model="atividade.descricao" required 
                             placeholder="Ex: Minicurso"/>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col md="4" sm="12">
-                        <b-form-group label="Minutos:" label-for="processo-minutos">
-                            <b-form-input senha="processo-minutos" type="text"
-                            v-model="usuario.minutos" required />
+                        <b-form-group label="Formato de tempo:" label-for="atividade-horas">
+                          <b-form-select tempo="tempo" class="select, mb-2" label v-model="tempo" required>
+                                <option tempo = "Horas" value="Horas">Horas</option>
+                                <option tempo = "Minutos" value="Minutos">Minutos</option>
+                            </b-form-select>
+                          <b-form-input horas="atividade-horas" type="text" v-model="atividade.horas" required/>
                         </b-form-group>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col md="10" sm="12">
-                        <b-form-group class="btn btn-outline-primary btn-lg" style="margin:0px 0px 10px 0px ">
-                           <div class="fileUpload">
-                                <span>Enviar Certificado</span>
-                                <input type="file" class="upload" />
-                            </div>
+                    <b-col md="6" sm="12">
+                      <b-form-group label="Certificado:" label-for="atividade-certificados">
+                        <input type="file" id="atividade-cert" @change="onFileSelected"/>
                         </b-form-group>
                     </b-col>
+                  
                 </b-row>
             </b-form>
-                <button variant="primary" @click="save" >Cadastrar</button>
+                <button variant="primary" @click="cadastrar" >Cadastrar</button>
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
 import tituloPagina from "@/components/template/tituloPagina";
-import { baseApiUrl, showError } from "@/global";
+import { baseApiUrl } from "@/global";
 import axios from "axios";
 
 export default {
@@ -70,21 +71,157 @@ export default {
   components: { tituloPagina },
   data: function() {
     return {
-      mode: "save",
-      usuario: {},
-      usuarios: []
+      atividade: {},
+      atividades: [],
+      selectedFile: null,
+      tempo: null
     };
   },
   methods: {
-    save() {
-      const method = this.usuario.matricula ? "put" : "post";
-      const matricula = this.usuario.matricula ? `/${this.usuario.matricula}` : "";
-      axios[method](`${baseApiUrl}/cadastroAtividade`, this.usuario)
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+      this.selectedFile.name = 'nova imagem'
+      console.log(this.selectedFile.name)
+      this.atividade.certificado = this.selectedFile;
+    },
+    calculoHora(tempo, atividade, horas) {
+      var temp;
+      switch (tempo) {
+        case "Horas":
+          switch (atividade) {
+            case "AE001":
+              temp = horas;
+              break;
+            case "AE002":
+              temp = horas;
+              temp = temp * 2;
+              break;
+            case "AE003":
+              temp = horas;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE004":
+              temp = horas;
+              if (temp >= 20) temp = 20;
+              break;
+            case "AE005":
+              temp = horas;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE006":
+              temp = horas;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE007":
+              temp = horas;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE008":
+              temp = horas;
+              temp = temp / 6;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE009":
+              temp = horas;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE010":
+              temp = horas;
+              if (temp >= 90) temp = 90;
+              break;
+            case "AE011":
+              temp = horas;
+              if (temp >= 90) temp = 90;
+              break;
+            case "AE012":
+              temp = horas;
+              break;
+            case "AE013":
+              temp = horas;
+              break;
+            case "AE014":
+              temp = horas;
+              break;
+          }
+          break;
+        case "Minutos":
+          switch (atividade) {
+            case "AE001":
+              temp = horas / 60;
+              break;
+            case "AE002":
+              temp = horas / 60;
+              temp = temp * 2;
+              break;
+            case "AE003":
+              temp = horas / 60;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE004":
+              temp = horas / 60;
+              if (temp >= 20) temp = 20;
+              break;
+            case "AE005":
+              temp = horas / 60;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE006":
+              temp = horas / 60;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE007":
+              temp = horas / 60;
+              if (temp >= 15) temp = 15;
+              break;
+            case "AE008":
+              temp = horas / 60;
+              temp = temp / 6;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE009":
+              temp = horas / 60;
+              if (temp >= 30) temp = 30;
+              break;
+            case "AE010":
+              temp = horas / 60;
+              if (temp >= 90) temp = 90;
+              break;
+            case "AE011":
+              temp = horas / 60;
+              if (temp >= 90) temp = 90;
+              break;
+            case "AE012":
+              temp = horas / 60;
+              break;
+            case "AE013":
+              temp = horas / 60;
+              break;
+            case "AE014":
+              temp = horas / 60;
+              break;
+          }
+          break;
+      }
+      this.atividade.horas = temp;
+    },
+    cadastrar() {
+      this.calculoHora(
+        this.tempo,
+        this.atividade.atividade,
+        this.atividade.horas
+      );
+      let cert = new FormData();
+      cert.append("atividade", this.atividade.atividade);
+      cert.append("descricao", this.atividade.descricao);
+      cert.append("horas", this.atividade.horas);
+      cert.append("certificado", this.selectedFile);
+      axios
+        .post(`${baseApiUrl}/cadastroAtividade`, cert)
         .then(() => {
           this.$toasted.global.defaultSuccess();
-          this.reset();
+          this.$router.push({ path: "/home" });
         })
-        .catch(showError);
+        .catch(err => console.log(err));
     }
   }
 };
@@ -130,10 +267,9 @@ export default {
   color: #fff;
   padding: 5px 15px;
 }
-.cadastroAtividade-modal button:hover  {
+.cadastroAtividade-modal button:hover {
   background-color: #246;
 }
-
 
 .cadastroAtividade-modal a {
   margin-top: 35px;

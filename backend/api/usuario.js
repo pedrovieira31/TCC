@@ -1,7 +1,9 @@
+const { authSecret } = require('../.env');
+const jwt = require('jwt-simple');
 const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
-    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validacao
+    const { existsOrError,equalsOrError } = app.api.validacao
 
     const senhacriptografada = senha => {
         const salt = bcrypt.genSaltSync(10)
@@ -23,7 +25,7 @@ module.exports = app => {
             equalsOrError(usuario.senha, usuario.confirmarsenha, 'Senhas Diferentes')
             existsOrError(usuario.email, 'E-mail não informado')
             userFromDB = await app.db('usuarios')
-            .where({ matricula: usuario.matricula }).first();
+                .where({ matricula: usuario.matricula }).first();
             if (userFromDb && usuario.matricula === userFromDb.matricula) {
                 existsOrError(userFromDB, 'Usuário já cadastrado');
             }
@@ -36,28 +38,36 @@ module.exports = app => {
         delete usuario.confirmarsenha
 
         await app.db('usuarios')
-                .insert(usuario)
-                .then(_ => res.status(200).send(usuario))
-                .catch(err => {
-                    console.log(err);
-                   return res.status(500).send(err)
-                });
+            .insert(usuario)
+            .then(_ => res.status(200).send(usuario))
+            .catch(err => {
+                console.log(err);
+                return res.status(500).send(err)
+            });
     }
+    
     const get = (req, res) => {
         app.db('usuarios')
-            .select('matricula', 'nome', 'email')
-            .whereNull('deleted_at')
             .then(usuario => res.json(usuario))
             .catch(err => res.status(500).send(err))
     }
-    const getMat = (req,res) => {
+    const getMat = (req, res) => {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.decode(token, authSecret);
+        var matricula = decodedToken.matricula;
         app.db('usuarios')
-            .select('matricula')
-            .where({matricula:req.params.matricula})
-            .whereNull('deleted_at')
-            .first()
-            .then(usuario=> res.json(usuario))
-            .catch(err => res.status(500).send(err))
+            .where({ matricula })
+            .then(usuarios => res.json(usuarios))
+            .catch((err) => console.log(err));
     }
-    return { save, getMat,get }
+    const getInfo = (req, res) => {
+        const matricula = req.params.matricula;
+        app.db('usuarios')
+            .where({ matricula })
+            .first()
+            .then(usuario => res.json(usuario))
+            .catch((err) => console.log(err));
+    }
+
+    return { save, getMat, get,getInfo}
 }

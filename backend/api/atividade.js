@@ -1,6 +1,7 @@
 module.exports = app =>{
     const {existsOrError,notExistsOrError} = app.api.validacao
 
+    
     const save = async (req,res) => {
         const atividade = {...req.body}
         if(req.params.id) atividade.codigo = req.params.id

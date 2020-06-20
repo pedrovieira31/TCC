@@ -31,6 +31,9 @@ export default new Vuex.Store({
                 delete axios.defaults.headers.common['Authorization']
                 state.isMenuVisible = false
             }
+        },
+        setProcessos(state, processos){
+            state.processos = processos;
         }
     }
 })

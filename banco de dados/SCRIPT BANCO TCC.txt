@@ -21,19 +21,19 @@ ALTER TABLE public."Atividades"
 
 -- DROP TABLE public."Processo";
 
-CREATE TABLE public."Processo"
+CREATE TABLE public."processos"
 (
-    "ID Processos" "char[]" NOT NULL,
-    "ID Atividades" "char[]",
-    "Matrícula" "char[]",
-    "Nome Processo" "char[]",
-    "Data de abertura" date,
-    "Horas Totais" abstime,
-    "Certificados" pg_lsn,
-    "Validação" boolean,
-    CONSTRAINT "Processo_pkey" PRIMARY KEY ("ID Processos"),
-	CONSTRAINT "Atividades_pkey" FOREIGN KEY ("ID Atividades") REFERENCES Atividades ("ID Atividades"),
-	CONSTRAINT "Usuário_pkey" FOREIGN KEY ("Matrícula") REFERENCES Usuário ("Matrícula")
+    "ID" serial NOT NULL,
+    "atividade" "varchar",
+    "matricula" "varchar",
+    "descricao" "varchar",
+    "data_abertura" date,
+    "horas" integer,
+    "certificado" "varchar" NOT NULL,
+    "validação" boolean,
+    CONSTRAINT "Processo_pkey" PRIMARY KEY ("ID"),
+	CONSTRAINT "Atividades_pkey" FOREIGN KEY ("atividade") REFERENCES atividades ("codigo"),
+	CONSTRAINT "Usuário_pkey" FOREIGN KEY ("matricula") REFERENCES usuarios ("matricula")
 )
 WITH (
     OIDS = FALSE

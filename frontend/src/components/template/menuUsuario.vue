@@ -1,16 +1,7 @@
 <template>
     <div class="menu-usuario">
         <div class="botao-usuario">
-            <span class="d-none d-sm-block">{{usuario.nome}}</span>
-            <div class="imagem-usuario">
-                <Gravatar :matricula="usuario.matricula" alt="Usuario"/>
-            </div>
-            <router-link to="">
-                <i class="fa fa-angle-down"></i>
-            </router-link>
-        </div>
-        <div class="conteudo-menu-usuario">
-            <a href @click.prevent="logout"><i class="fa fa-sign-out"></i>Sair</a>
+            <span class="d-none d-sm-block" href @click.prevent="logout"><i class="fa fa-sign-out"></i> Sair</span>
         </div>
     </div>
 </template>
@@ -45,6 +36,9 @@ export default {
         font-weight: 100;
         height: 100%;
         padding: 0px 20px;
+    }
+    .d-none:hover{
+        cursor: pointer;
     }
     .botao-usuario:hover{
         background-color: rgba(0,0,0,0.2);

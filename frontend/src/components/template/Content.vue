@@ -15,7 +15,6 @@ export default {
         grid-area: content;
         background-color: #efefef;
         display: flex;
-        align-items: center;
         justify-content: center;
     }
 </style>

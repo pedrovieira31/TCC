@@ -15,7 +15,8 @@ export default {
 
 <style>
     .titulo-pagina h1{
-        margin: 0px;
+        margin: 20px 0px 0px 0px;
+        align-items: left;
     }
     .titulo-pagina h2{
         color: #777;

@@ -38,7 +38,7 @@
 <script>
 import tituloPagina from "@/components/template/tituloPagina";
 import axios from "axios";
-import { baseApiUrl, showError, chaveUsuario } from "@/global";
+import { baseApiUrl, chaveUsuario } from "@/global";
 
 export default {
   name: "autentificacao",
@@ -51,22 +51,42 @@ export default {
   },
   methods: {
     logar() {
-      axios.post(`${baseApiUrl}/login`, this.usuario)
+      axios
+        .post(`${baseApiUrl}/login`, this.usuario)
         .then(res => {
-          this.$store.commit('setUsuario', res.data);
+          this.$store.commit("setUsuario", res.data);
           localStorage.setItem(chaveUsuario, JSON.stringify(res.data));
-          this.$router.push({path:'/home'})
+          var admin = res.data.admin;
+          if (admin == true) {
+            this.$toasted.global.defaultSuccess()
+            this.$router.push({ path: "/admin" });
+          } else {
+            this.$toasted.global.defaultSuccess()
+            this.$router.push({ path: "/home" });
+          }
         })
-        .catch((err) => console.log(err));
+        .catch(err => status(500).send(err));
     },
     cadastrar() {
-      axios.post(`${baseApiUrl}/cadastro`, this.usuario)
+      axios
+        .post(`${baseApiUrl}/cadastro`, this.usuario)
         .then(() => {
           this.$toasted.global.defaultSuccess();
           this.usuario = {};
           this.showcadastrar = false;
         })
-        .catch((err) => console.log(err));
+        .catch(err => status(500).send(err));
+    },
+    semUsuario() {
+            localStorage.removeItem(chaveUsuario)
+            this.$store.commit('setUsuario', null)
+        }
+  },
+  created(){
+    const usuario = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
+    if(usuario){
+      localStorage.removeItem(chaveUsuario)
+      this.$store.commit('setUsuario', null)
     }
   }
 };
@@ -87,6 +107,7 @@ export default {
   padding: 35px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,7 +136,7 @@ export default {
   color: #fff;
   padding: 5px 15px;
 }
-.autentificacao-modal button:hover  {
+.autentificacao-modal button:hover {
   background-color: #246;
 }
 

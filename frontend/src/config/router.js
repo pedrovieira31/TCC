@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from '@/components/home/Home'
 import paginasAdmin from '@/components/admin/paginasAdmin'
-import cadastro from '@/components/cadastro/cadastro'
+import paginaAdminAluno from '@/components/admin/paginaAdminAluno'
 import cadastroAtividade from '@/components/cadastro/cadastroAtividade'
 import autentificacao from '@/components/autentificacao/autentificacao'
 
@@ -13,10 +13,6 @@ const routes = [{
     name: 'home',
     path: '/home',
     component: Home
-}, {
-    name: 'cadastro',
-    path: '/cadastro',
-    component: cadastro
 },{
     name: 'cadastroAtividade',
     path: '/cadastroAtividade',
@@ -29,6 +25,13 @@ const routes = [{
     name: 'paginasAdmin',
     path: '/admin',
     component: paginasAdmin,
+    meta: { requiresAdmin: true }
+},
+{
+    name: 'paginasAdminAluno',
+    path: '/admin/aluno/:matricula',
+    component: paginaAdminAluno,
+    props:true,
     meta: { requiresAdmin: true }
 }]
 

@@ -1,6 +1,9 @@
 <template>
     <div class="home">
         <tituloPagina icon="fa fa-home" main=" Página do Aluno"/>
+        <div title="Tabela de Informações">
+            <infoAluno/>
+        </div>
         <div title="Tabela de Atividades">
         <div class= "Home-modal">
             <Tabela/>
@@ -11,23 +14,31 @@
 </template>
 
 <script>
-import tituloPagina from '../template/tituloPagina'
-import Tabela from './Tabela'
+import tituloPagina from "../template/tituloPagina";
+import infoAluno from "./infoAluno";
+import Tabela from "./Tabela";
+import {chaveUsuario } from "@/global";
 
 export default {
-  nome:'home',
-  components:{tituloPagina, Tabela},
-  data: function(){
+  nome: "home",
+  components: { tituloPagina,infoAluno,Tabela},
+  data: function() {
     return {
-      processos:{}
+      mode: "save",
+      usuarios: {},
+      processos: {},
+    };
+  },
+  created(){
+    const usuario = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
+    if(usuario){
+      this.$store.commit("setUsuario", usuario);
     }
   }
 };
-
 </script>
 
 <style>
-
 .Home-content {
   height: 100%;
   display: flex;
@@ -43,6 +54,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 15px;
+}
+
+.infoAluno {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+
+  font-size: smaller;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-bottom: 15px;
 }
 
 .Home-title {
@@ -65,12 +88,11 @@ export default {
   background-color: #2460ae;
   border-radius: 10px;
   color: #fff;
-  padding: 5px 15px;
+  padding: 5px 15px 5px;
 }
-.Home-modal button:hover  {
+.Home-modal button:hover {
   background-color: #246;
-}
-
+} 
 
 .Home-modal a {
   margin-top: 35px;
