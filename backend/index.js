@@ -2,11 +2,14 @@ const app = require('express')()
 const consign = require('consign')
 const db = require('./config/db')
 const mongoose = require('mongoose')
+const express = require('express')
 
 require('./config/mongodb')
 
 app.db = db
 app.mongoose = mongoose
+
+app.use('/static',express.static(__dirname + "/uploads"));
 
 consign()
     .include('./config/passport.js')

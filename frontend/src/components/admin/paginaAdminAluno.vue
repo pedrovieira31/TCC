@@ -102,6 +102,7 @@ export default {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
 }
 
 .paginasAdmin-modal button {

@@ -2,11 +2,11 @@
     <div class="home">
         <tituloPagina icon="fa fa-home" main=" Página do Aluno"/>
         <div title="Tabela de Informações">
-            <infoAluno/>
+            <infoAluno :processos= 'processos' />
         </div>
         <div title="Tabela de Atividades">
         <div class= "Home-modal">
-            <Tabela/>
+            <Tabela :processos= 'processos'/>
             <button href @click.prevent="$router.push({path:'/cadastroAtividade'})">Cadastrar Atividade</button>
         </div>
       </div>
@@ -17,7 +17,8 @@
 import tituloPagina from "../template/tituloPagina";
 import infoAluno from "./infoAluno";
 import Tabela from "./Tabela";
-import {chaveUsuario } from "@/global";
+import {chaveUsuario,baseApiUrl } from "@/global";
+import axios from "axios";
 
 export default {
   nome: "home",
@@ -29,10 +30,19 @@ export default {
       processos: {},
     };
   },
+  methods:{
+    carregarProcessos() {
+      axios.get(`${baseApiUrl}/home`).then(res => {
+        this.processos = res.data;
+        this.$store.commit("setProcessos", this.processos)
+      });
+    }
+  },
   created(){
     const usuario = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
     if(usuario){
       this.$store.commit("setUsuario", usuario);
+      this.carregarProcessos();
     }
   }
 };
@@ -89,6 +99,7 @@ export default {
   border-radius: 10px;
   color: #fff;
   padding: 5px 15px 5px;
+  margin-bottom: 7px;
 }
 .Home-modal button:hover {
   background-color: #246;

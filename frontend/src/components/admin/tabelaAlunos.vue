@@ -1,5 +1,5 @@
 <template>
-    <div class="tabela-alunos">
+    <div class="tabela-modal">
         <h1>Tabela de Alunos</h1>
         <b-table hover striped :items="usuarios" :fields="fields" @row-clicked="link($event)">
         </b-table>
@@ -11,6 +11,7 @@ import { baseApiUrl } from "@/global";
 import axios from "axios";
 
 export default {
+/* eslint-disable */
     nome: "usuarios",
     data: function() {
         return {
@@ -32,7 +33,6 @@ export default {
             });
         },
         link(aluno) {
-            console.log(aluno)
             this.$router.push({ name: `paginasAdminAluno`, params: {aluno:aluno, matricula:aluno.matricula}});
         }
     },

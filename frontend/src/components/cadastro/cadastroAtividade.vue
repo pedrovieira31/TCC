@@ -3,11 +3,11 @@
     <div class="cadastroAtividade" >
         <tituloPagina icon="fa fa-pencil" main=" Cadastro de Atividade"/>
         <div class= "cadastroAtividade-modal">
-            <b-form>
+            <b-form >
                 <b-row>
-                    <b-col md="9" sm="12">
-                        <b-form-group label="Escolha a Atividade:" >
-                            <b-form-select atividade="atividade" class="select" v-model="atividade.atividade" required>
+                    <b-col md="9" sm="12" >
+                        <b-form-group label="Escolha a Atividade:" class="m-2">
+                            <b-form-select atividade="atividade" v-model="atividade.atividade" required>
                                 <option atividade.atividade = "AE001" value="AE001">AE001: Cursos e minicursos de extensão (presencial ou à distância) realizados</option>
                                 <option atividade.atividade = "AE002" value="AE002">AE002: Curso, minicursos e palestras ministrados</option>
                                 <option atividade.atividade = "AE003" value="AE003">AE003: Participação em congressos, seminários ou outros eventos, sem apresentação de trabalho ou outros eventos</option>
@@ -28,8 +28,8 @@
                 </b-row>
                 <b-row>
                     <b-col md="4" sm="12">
-                        <b-form-group label="Descrição:" label-for="atividade-descricao">
-                            <b-form-input id="atividade-descricao" type="text"
+                        <b-form-group label="Descrição:" class="ml-2" label-for="atividade-descricao">
+                            <b-form-input id="atividade-descricao"  type="text"
                             v-model="atividade.descricao" required 
                             placeholder="Ex: Minicurso"/>
                         </b-form-group>
@@ -37,8 +37,8 @@
                 </b-row>
                 <b-row>
                     <b-col md="4" sm="12">
-                        <b-form-group label="Formato de tempo:" label-for="atividade-horas">
-                          <b-form-select tempo="tempo" class="select, mb-2" label v-model="tempo" required>
+                        <b-form-group label="Formato de tempo:" class="ml-2" label-for="atividade-horas">
+                          <b-form-select tempo="tempo" class="mb-2" label v-model="tempo" required>
                                 <option tempo = "Horas" value="Horas">Horas</option>
                                 <option tempo = "Minutos" value="Minutos">Minutos</option>
                             </b-form-select>
@@ -48,8 +48,8 @@
                 </b-row>
                 <b-row>
                     <b-col md="6" sm="12">
-                      <b-form-group label="Certificado:" label-for="atividade-certificados">
-                        <input type="file" id="atividade-cert" @change="onFileSelected"/>
+                      <b-form-group label="Certificado:" class="ml-2" label-for="atividade-certificados">
+                        <b-form-file type="file" id="atividade-cert" placeholder="Escolher arquivo..." name="certificado_" @change="onFileSelected"/>
                         </b-form-group>
                     </b-col>
                   
@@ -65,24 +65,33 @@
 import tituloPagina from "@/components/template/tituloPagina";
 import { baseApiUrl } from "@/global";
 import axios from "axios";
+import { FormFilePlugin } from "bootstrap-vue";
 
 export default {
   name: "cadastroAtividade",
   components: { tituloPagina },
   data: function() {
     return {
+      mode: "save",
       atividade: {},
-      atividades: [],
+      processo: [],
       selectedFile: null,
-      tempo: null
+      tempo: null,
+      processoId: null
     };
+    Vue.use(FormFilePlugin);
   },
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      this.selectedFile.name = 'nova imagem'
-      console.log(this.selectedFile.name)
       this.atividade.certificado = this.selectedFile;
+      console.log(this.selectedFile)
+    },
+    carregarID() {
+      axios.get(`${baseApiUrl}/cadastroAtividade`).then(res => {
+        this.processoId = res.data.max;
+        this.processoId++;
+      });
     },
     calculoHora(tempo, atividade, horas) {
       var temp;
@@ -214,15 +223,19 @@ export default {
       cert.append("atividade", this.atividade.atividade);
       cert.append("descricao", this.atividade.descricao);
       cert.append("horas", this.atividade.horas);
+      cert.append("filename", `certificado_${this.processoId}.${this.selectedFile.name.split('.').pop()}`);
       cert.append("certificado", this.selectedFile);
       axios
-        .post(`${baseApiUrl}/cadastroAtividade`, cert)
+        .post(`${baseApiUrl}/cadastroAtividade/${this.processoId}`, cert)
         .then(() => {
           this.$toasted.global.defaultSuccess();
           this.$router.push({ path: "/home" });
         })
         .catch(err => console.log(err));
     }
+  },
+  mounted() {
+    this.carregarID();
   }
 };
 </script>
@@ -266,6 +279,7 @@ export default {
   border-radius: 10px;
   color: #fff;
   padding: 5px 15px;
+  margin-bottom: 5px;
 }
 .cadastroAtividade-modal button:hover {
   background-color: #246;

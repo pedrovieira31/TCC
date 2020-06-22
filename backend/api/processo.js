@@ -13,7 +13,8 @@ module.exports = app => {
         const decodedToken = jwt.decode(token, authSecret);
         const processos = { ...req.body };
         processos.matricula = decodedToken.matricula;
-        processos.certificado = req.file.originalname
+        processos.certificado = req.body.filename;
+        delete processos.filename;
 
         try {
             existsOrError(processos.atividade, 'Atividade não informada')
@@ -34,7 +35,7 @@ module.exports = app => {
     const remove = async (req,res) => {
         try {
             const rowsDeleted = await app.db('processos')
-                .where({ ID: req.params.ID }).del()
+                .where({ p_id: req.params.p_id }).del()
 
             try {
                 existsOrError(rowsDeleted, 'Processo não foi encontrado.')
@@ -55,27 +56,18 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    const getID = (req, res) => {
+    const getId = (req, res) => {
         app.db('processos')
-            .select('MAX(ID)')
-            .then(processos => res.json(processos))
+            .max('p_id')
+            .then(response => res.json(response[0]))
             .catch(err => res.status(500).send(err))
     }
-    const getHoras = (req, res) => {
-        app.db('processos')
-            .select('horas')
-            .where({ matricula })
-            .then(processos => res.json(processos))
-            .catch(err => res.status(500).send(err))
-    }
-
-
     const getMat = (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.decode(token, authSecret);
         var matricula = decodedToken.matricula;
         app.db('processos')
-            .select('ID','atividade','descricao','horas','certificado')
+            .select('p_id','atividade','descricao','horas','certificado')
             .where({ matricula })
             .then(processos => res.json(processos))
             .catch((err) => console.log(err));
@@ -88,5 +80,5 @@ module.exports = app => {
             .catch((err) => console.log(err));
     }
 
-    return { save, remove, get, getMat, getMatAD, getID, getHoras }
+    return { save, remove, get, getMat, getMatAD, getId}
 }

@@ -2,7 +2,7 @@
   <div class="paginasAdmin">
     <tituloPagina icon="fa fa-cogs" main=" Administração do Sistema"/>
       <div title="Tabela de Alunos">
-        <div class= "paginasAdmin-modal">
+        <div class= "tabela-modal">
           <tabelaAlunos/>
         </div>
       </div>

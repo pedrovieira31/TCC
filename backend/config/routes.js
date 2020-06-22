@@ -7,7 +7,8 @@ var storage = multer.diskStorage({
     cb(null, './uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '.jpg') //Appending .jpg
+      console.log(req.body)
+    cb(null, req.body.filename) //Appending .jpg
   }
 })
 var upload = multer({ storage: storage });
@@ -31,14 +32,16 @@ module.exports = app =>{
         .put(app.api.usuario.save)
         .get(app.api.usuario.getMat)
 
-    app.post('/cadastroAtividade',upload.single('certificado'), app.api.processo.save,app.api.processo.getID)
+    app.post('/cadastroAtividade/:p_id',upload.single('certificado'), app.api.processo.save)
+
+    app.route('/cadastroAtividade')
+    .get(app.api.processo.getId)
 
     app.route('/home')
     .get(app.api.processo.getMat)
 
     app.route('/admin')
         .get(app.api.usuario.get)
-        .delete(app.api.processo.remove)
         
     app.route('/aluno/:matricula')    
         .get(app.api.usuario.getInfo)
@@ -46,7 +49,7 @@ module.exports = app =>{
     app.route('/admin/aluno/:matricula')
         .get(app.api.processo.getMatAD)
 
-    app.route('/admin/aluno/:ID')
+    app.route('/admin/aluno/:p_id')
         .delete(app.api.processo.remove)
 
     app.route('/stats')

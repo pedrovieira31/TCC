@@ -14,18 +14,13 @@ import {chaveUsuario } from "@/global";
 
 export default {
   nome: "usuario",
+  props: ['processos'],
   data: function() {
     return {
       mode: "save",
-      usuario: {matricula: "", nome: "", totalHoras:0, horasComputadas:0},
-      processos:[]
+      usuario: {matricula: "", nome: "", totalHoras:0, horasComputadas:0}
     };
   },
-  // watch: {
-  //   processos: function(val){
-  //     console.log(val);
-  //   }
-  // },
   methods: {
     infoAluno() {
       const user = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
@@ -34,13 +29,8 @@ export default {
         this.usuario.matricula = user.matricula;
       }
     },
-    getProcessos(){
-      this.processos = this.$store.state.processos;
-    },
     calculoHorasT(){
-      if(this.processos){
-        this.processos.forEach(processo => this.usuario.totalHoras += processo.horas);
-      }
+      this.processos.forEach(processo => this.usuario.totalHoras += processo.horas);
     },
     calculoHorasC(){
       let AE = new Array(15).fill(0);
@@ -125,11 +115,20 @@ export default {
       this.usuario.horasComputadas = AE[0];
     }
   },
+  watch:{
+    processos: function(){
+      if( this.processos && this.processos.length){
+        this.calculoHorasT();
+        this.calculoHorasC();
+      }
+    }
+  },
   mounted() {
-    this.getProcessos();
-    this.calculoHorasT();
-    this.calculoHorasC();
     this.infoAluno();
+    if( this.processos && this.processos.length){
+      this.calculoHorasT();
+      this.calculoHorasC();
+    }
   }
 };
 </script>

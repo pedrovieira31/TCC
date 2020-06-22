@@ -4,7 +4,7 @@
             <img src="@/assets/logo.png" width="200" alt="Logo" />
             <hr>
             <div class="autentificacao-title">{{showcadastrar ? 'Cadastro' : 'Login'}}</div>
-             <b-form>
+             <b-form class="autentificacao-bform">
                         <b-form-group v-if="showcadastrar" label="Nome:" label-for="usuario-nome">
                             <b-form-input id="usuario-nome" type="text"
                             v-model="usuario.nome" required/>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import tituloPagina from "@/components/template/tituloPagina";
 import axios from "axios";
 import { baseApiUrl, chaveUsuario } from "@/global";
@@ -63,6 +64,7 @@ export default {
           } else {
             this.$toasted.global.defaultSuccess()
             this.$router.push({ path: "/home" });
+            this.$store.commit("setUsuario", res.data);
           }
         })
         .catch(err => status(500).send(err));
@@ -128,6 +130,10 @@ export default {
   outline: none;
 }
 
+.autentificacao-bform{
+  margin-left: 10px;
+}
+
 .autentificacao-modal button {
   display: flex;
   align-items: center;
@@ -135,6 +141,7 @@ export default {
   border-radius: 10px;
   color: #fff;
   padding: 5px 15px;
+  margin-bottom: 5px;
 }
 .autentificacao-modal button:hover {
   background-color: #246;
@@ -143,6 +150,7 @@ export default {
 .autentificacao-modal a {
   margin-top: 35px;
 }
+
 
 .autentificacao-modal hr {
   border: 0;
