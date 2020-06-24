@@ -9,7 +9,7 @@ require('./config/mongodb')
 app.db = db
 app.mongoose = mongoose
 
-app.use('/static',express.static(__dirname + "/uploads"));
+app.use('/certificado',express.static(__dirname + "/uploads"));
 
 consign()
     .include('./config/passport.js')

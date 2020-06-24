@@ -3,14 +3,13 @@
     <h1>Tabela de processos</h1>
     <b-table hover striped :fields="campos" :items="this.processos" >
       <template v-slot:cell(excluir)="data">
-        <b-button variant="danger" size="sm" @click="aviso(data.item.ID)">
+        <b-button variant="danger" class="botao2" size="sm" @click="aviso(data.item.p_id)">
           <i class="fa fa-trash"></i>
         </b-button>
       </template>
       <template v-slot:cell(certificado)="cert">
-
-          <b-img :src="'http://localhost:3000/static/' + cert.item.certificado" fluid alt="Responsive image"/>
-
+        <b-button class="botao" size="sm" @click="exibirPdf(cert.item.certificado)">{{cert.item.certificado}}</b-button>
+          <!-- <b-img :src="'http://localhost:3000/static/' + cert.item.certificado" fluid alt="Responsive image"/> -->
       </template>
     </b-table>
   </div>
@@ -43,16 +42,12 @@ export default {
     };
   },
   methods: {
-    reset() {
-      this.mode = "save";
-      this.processos = {};
-      this.carregarProcessos();
+    exibirPdf(certi){
+      window.open('http://localhost:3000/certificado/' + certi);  
     },
     excluirProcesso(ativ) {
       axios.delete(`${baseApiUrl}/admin/aluno/${ativ}`).then(res => {
-        this.processos = res.data;
         this.$toasted.global.defaultSuccess();
-        this.reset();
       });
     },
     aviso(cod) {
@@ -80,5 +75,20 @@ export default {
 }
 .img-fluid{
   height: 50%;
+}
+.botao{
+  align-self: center;
+  background-color: #2460ae;
+  border-radius: 10px;
+  color: #fff;
+  margin-bottom: 7px;
+}
+.botao:hover {
+  background-color: #246;
+} 
+.botao2{
+  align-self: center;
+  border-radius: 10px;
+  margin-bottom: 7px;
 }
 </style>

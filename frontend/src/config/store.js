@@ -34,6 +34,9 @@ export default new Vuex.Store({
         },
         setProcessos(state, processos){
             state.processos = processos;
+        },
+        getProcessos(state, processos){
+            return state.processos = processos;
         }
     }
 })

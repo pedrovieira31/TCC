@@ -49,6 +49,13 @@ export default {
       }
     }
   },
+  watch:{
+    processos: function(){
+      if( this.processos && this.processos.length){
+        this.carregarProcessos();
+      }
+    }
+  },
   created() {
     this.alunoObj = this.aluno;
     const usuario = localStorage.getItem(chaveUsuario)

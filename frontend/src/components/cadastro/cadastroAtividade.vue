@@ -49,7 +49,8 @@
                 <b-row>
                     <b-col md="6" sm="12">
                       <b-form-group label="Certificado:" class="ml-2" label-for="atividade-certificados">
-                        <b-form-file type="file" id="atividade-cert" placeholder="Escolher arquivo..." name="certificado_" @change="onFileSelected"/>
+                        <b-form-file type="file" accept=".pdf" id="atividade-cert" placeholder="Escolher arquivo..." name="certificado_" @change="onFileSelected"/> 
+                         
                         </b-form-group>
                     </b-col>
                   
@@ -63,7 +64,7 @@
 <script>
 /* eslint-disable */
 import tituloPagina from "@/components/template/tituloPagina";
-import { baseApiUrl } from "@/global";
+import { chaveUsuario,baseApiUrl } from "@/global";
 import axios from "axios";
 import { FormFilePlugin } from "bootstrap-vue";
 
@@ -234,10 +235,14 @@ export default {
         .catch(err => console.log(err));
     }
   },
-  mounted() {
+  created() {
+    const usuario = localStorage.getItem(chaveUsuario) ? JSON.parse(localStorage.getItem(chaveUsuario)) : null;
+    if(usuario){
+      this.$store.commit("setUsuario", usuario);
+    }
     this.carregarID();
   }
-};
+}
 </script>
 
 <style>
