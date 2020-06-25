@@ -1,0 +1,16 @@
+Para iniciar é necessário instalar node.js: https://nodejs.org/en/
+No cmd instale as depedências, use as seguintes linhas:
+npm install nodemon --global
+npm install vue --global
+npm install -g @vue/cli
+npm i (dentro das pastas do backend e frontend)
+
+Use o script sqlSistema para criar o banco de dados. Crie o database com o nome: AtividadesComplementares
+
+Para iniciar o sistema precisar rodar o backend e o frontend ao mesmo tempo, através do terminal coloque:
+nodemon (para o backend)
+npm run serve (para o frontend)
+
+Para criar o admin é necessário criar o usuario normalmente pela aplicação, 
+mas para mudar seu admin precisa ir ao banco e realizar o seguinte comando:
+update usuarios set admin=true where matricula='matricula do usuario desejado'
